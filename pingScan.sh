@@ -3,7 +3,7 @@
 
 for lastOctet in $(seq $2 $3)
 do 
-ping -c 1 $1.$lastOctet > /dev/null & disown
+ping -c 1 -w 1 $1.$lastOctet > /dev/null
 [ $? -eq 0 ] && echo $1.$lastOctet
 done
 
