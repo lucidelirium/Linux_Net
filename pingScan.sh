@@ -1,14 +1,10 @@
 #!/bin/bash
-#Credit to https://linuxconfig.org/bash-scripts-to-scan-and-monitor-network
+#Example: ./script.sh 192.168.1 1 254
 
-is_alive_ping()
-{
-  ping -c 1 $1 > /dev/null
-  [ $? -eq 0 ] && echo $i
-}
-
-for i in 10.1.{1..6}.{1..254} 
-do
-is_alive_ping $i & disown
+for lastOctet in $(seq $2 $3)
+do 
+ping -c 1 $1.$lastOctet > /dev/null & disown
+[ $? -eq 0 ] && echo $1.$lastOctet
 done
+
 
